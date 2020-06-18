@@ -60,18 +60,32 @@
 </div>
 <div class="section" id="use">
 <h2>Use<a class="headerlink" href="#use" title="Permalink to this headline">¶</a></h2>
-<p>To use <code class="docutils literal notranslate"><span class="pre">sphinx-thebelab</span></code>, include code blocks in your documentation that contain
-the class <code class="docutils literal notranslate"><span class="pre">thebelab</span></code>. You can add code blocks like so:</p>
+<p>There are two steps to using <code class="docutils literal notranslate"><span class="pre">sphinx-thebelab</span></code>. First, you must mark certain
+parts of your page as “ready for thebelab”. Next, you must insert a button onto
+the page to tell Thebelab to initialize.</p>
+<div class="section" id="mark-elements-for-thebelab">
+<h3>Mark elements for thebelab<a class="headerlink" href="#mark-elements-for-thebelab" title="Permalink to this headline">¶</a></h3>
+<p>By default, thebelab will be run on any elements in your documentation that contain
+the class <code class="docutils literal notranslate"><span class="pre">thebelab</span></code> and that have a <code class="docutils literal notranslate"><span class="pre">&lt;pre</span></code>&gt; element underneath them.</p>
+<p>You can add code blocks like so:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>```{code-block}
 :class: thebelab
 ```
 </pre></div>
 </div>
+<p>By default, <code class="docutils literal notranslate"><span class="pre">sphinx-thebelab</span></code> will look for any HTML <code class="docutils literal notranslate"><span class="pre">&lt;pre&gt;</span></code> element <em>inside</em> the code
+block. Thebelab will run on that element.</p>
+</div>
+<div class="section" id="add-an-activate-button-to-your-page">
+<h3>Add an activate button to your page<a class="headerlink" href="#add-an-activate-button-to-your-page" title="Permalink to this headline">¶</a></h3>
 <p>Next, insert an “activate” button in your documentation with the following
 directive:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>```{thebelab-button}
 ```
 </pre></div>
+</div>
+<p>Clicking this button will activate Thebelab on the page. If you’d like to manually
+add your own button (e.g. with your own extension or theme), see <a class="reference internal" href="configure.html#add-custom-button"><span class="std std-ref">Adding your own button to start Thebelab</span></a>.</p>
 </div>
 </div>
 <div class="section" id="example">

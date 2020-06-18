@@ -56,6 +56,42 @@ finds with the <code class="docutils literal notranslate"><span class="pre">sele
 converted to interactive with <code class="docutils literal notranslate"><span class="pre">thebelab</span></code>.</p>
 </div>
 </div>
+<div class="section" id="including-outputs-with-your-code">
+<h2>Including outputs with your code<a class="headerlink" href="#including-outputs-with-your-code" title="Permalink to this headline">¶</a></h2>
+<p>If you’d like to include outputs in the <em>static</em> version of your page, and only
+overwrite them once the user has run that Thebelab cell, you can configure <code class="docutils literal notranslate"><span class="pre">sphinx-thebelab</span></code>
+to detect and keep the outputs associated with some code. To do so, use
+the <code class="docutils literal notranslate"><span class="pre">selector-output</span></code> configuration. This is a selector that is searched for <em>within</em> any
+items discovered by <code class="docutils literal notranslate"><span class="pre">selector</span></code>. If an output is found, it will be placed just after the
+code and Thebelab will detect it.</p>
+<p>For example, the following code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>````{container} thebelab
+```{code-block} r
+print(&quot;hi&quot;)
+```
+
+```{container} output
+&quot;hi&quot;
+```
+````
+</pre></div>
+</div>
+<p>Defines a <em>parent container</em> in which we’ll put both code and the output of the
+code. We’ll use a <code class="docutils literal notranslate"><span class="pre">code-block</span></code> for the code, and another <code class="docutils literal notranslate"><span class="pre">container</span></code> node with our
+<code class="docutils literal notranslate"><span class="pre">output</span></code> class for the output. <code class="docutils literal notranslate"><span class="pre">sphinx-gallery</span></code> will detect the parent container because
+it has a <code class="docutils literal notranslate"><span class="pre">thebelab</span></code> class. It will detect the <code class="docutils literal notranslate"><span class="pre">pre</span></code> block inside the container as the
+code, and it will detect the <code class="docutils literal notranslate"><span class="pre">&lt;div&gt;</span></code> block with the <code class="docutils literal notranslate"><span class="pre">output</span></code> class as the output.</p>
+<p>The result is that initializing Thebelab <em>retains</em> the output until the cell is
+executed, like so:</p>
+<button title="Make live" class="thebelab-button"onclick="initThebelab()">Make live</button><div class="thebelab docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="s">&quot;hi&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="output docutils container">
+<p>“hi”</p>
+</div>
+</div>
+</div>
 <div class="section" id="setting-the-kernel">
 <h2>Setting the Kernel<a class="headerlink" href="#setting-the-kernel" title="Permalink to this headline">¶</a></h2>
 <p>You can set the kernel that Thebelab uses on a page by adding metadata to your
@@ -110,7 +146,7 @@ print(&quot;hi&quot;)
 will be displayed below.</p>
 </div>
 <div class="section" id="adding-your-own-button-to-start-thebelab">
-<h2>Adding your own button to start Thebelab<a class="headerlink" href="#adding-your-own-button-to-start-thebelab" title="Permalink to this headline">¶</a></h2>
+<span id="add-custom-button"></span><h2>Adding your own button to start Thebelab<a class="headerlink" href="#adding-your-own-button-to-start-thebelab" title="Permalink to this headline">¶</a></h2>
 <p>By default, Thebelab encourages users to use the <code class="docutils literal notranslate"><span class="pre">thebelab-button</span></code> directive to
 insert a thebelab button into their documentation. However, you can add your own
 buttons wherever you wish. Simply ensure that an HTML element has this attribute:</p>
@@ -167,6 +203,7 @@ directive:</p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Configuring thebelab</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#change-the-html-selector-to-mark-interactive-cells">Change the HTML selector to mark interactive cells</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#including-outputs-with-your-code">Including outputs with your code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#setting-the-kernel">Setting the Kernel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#automatically-running-some-code">Automatically running some code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#adding-your-own-button-to-start-thebelab">Adding your own button to start Thebelab</a></li>
