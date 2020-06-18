@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Configuring thebelab &#8212; Sphinx Copybutton  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/thebelab.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/thebelab_config.js"></script>
+    <script src="_static/thebelab.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script async="async" src="_static/thebelab.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="sphinx-thebelab" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="configuring-thebelab">
+<h1>Configuring thebelab<a class="headerlink" href="#configuring-thebelab" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="setting-the-kernel">
+<h2>Setting the Kernel<a class="headerlink" href="#setting-the-kernel" title="Permalink to this headline">¶</a></h2>
+<p>You can set the kernel that Thebelab uses on a page by adding metadata to your
+page. To do so, add the following metadata to the top of your page:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">thebelab</span><span class="o">-</span><span class="n">kernel</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">kernel</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>For example, this page had the following metadata in it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">thebelab</span><span class="o">-</span><span class="n">kernel</span><span class="p">:</span> <span class="n">ir</span>
+</pre></div>
+</div>
+<p>In addition, this website is configured to use the <a class="reference external" href="https://github.com/binder-examples/r">Binder R example repository</a>
+for its environment. As a result, we can now run R code interactively with Thebelab:</p>
+<button title="Make live" class="thebelab-button" id="thebelab-activate-button" onclick="initThebelab()">Make live</button><div class="thebelab thebelab-init highlight-default notranslate"><div class="highlight"><pre><span></span># ggplot2 examples
+library(ggplot2)
+
+# create factors with value labels
+mtcars$gear &lt;- factor(mtcars$gear,levels=c(3,4,5),
+  	labels=c(&quot;3gears&quot;,&quot;4gears&quot;,&quot;5gears&quot;))
+mtcars$am &lt;- factor(mtcars$am,levels=c(0,1),
+  	labels=c(&quot;Automatic&quot;,&quot;Manual&quot;))
+mtcars$cyl &lt;- factor(mtcars$cyl,levels=c(4,6,8),
+   labels=c(&quot;4cyl&quot;,&quot;6cyl&quot;,&quot;8cyl&quot;))
+</pre></div>
+</div>
+<div class="thebelab thebelab-init highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Kernel density plots for mpg</span>
+<span class="c1"># grouped by number of gears (indicated by color)</span>
+<span class="n">qplot</span><span class="p">(</span><span class="n">mpg</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">mtcars</span><span class="p">,</span> <span class="n">geom</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">gear</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">I</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="p">),</span>
+   <span class="n">main</span><span class="o">=</span><span class="s2">&quot;Distribution of Gas Milage&quot;</span><span class="p">,</span> <span class="n">xlab</span><span class="o">=</span><span class="s2">&quot;Miles Per Gallon&quot;</span><span class="p">,</span>
+   <span class="n">ylab</span><span class="o">=</span><span class="s2">&quot;Density&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="thebelab highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Scatterplot of mpg vs. hp for each combination of gears and cylinders</span>
+<span class="c1"># in each facet, transmittion type is represented by shape and color</span>
+<span class="n">qplot</span><span class="p">(</span><span class="n">hp</span><span class="p">,</span> <span class="n">mpg</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">mtcars</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">am</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">am</span><span class="p">,</span>
+   <span class="n">facets</span><span class="o">=</span><span class="n">gear</span><span class="o">~</span><span class="n">cyl</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">I</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+   <span class="n">xlab</span><span class="o">=</span><span class="s2">&quot;Horsepower&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s2">&quot;Miles per Gallon&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="automatically-running-some-code">
+<h2>Automatically running some code<a class="headerlink" href="#automatically-running-some-code" title="Permalink to this headline">¶</a></h2>
+<p>You can tag code blocks to run as soon as the kernel is ready (i.e., without any user input)
+by adding the <code class="docutils literal notranslate"><span class="pre">thebelab-init</span></code> class to the code blocks. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>```{code-block}
+:class: thebelab, thebelab-init
+print(&quot;hi&quot;)
+```
+</pre></div>
+</div>
+<p>These code blocks will be run automatically once the kernel is ready, and their outputs
+will be displayed below.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/r",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "r"
+        },
+        kernelOptions: {
+            kernelName: "ir",
+            path: "."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'ir'</script>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Sphinx Copybutton</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuring thebelab</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#setting-the-kernel">Setting the Kernel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#automatically-running-some-code">Automatically running some code</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">sphinx-thebelab</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Chris Holdgraf.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/configure.md.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
