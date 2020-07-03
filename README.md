@@ -9,7 +9,7 @@ See [the sphinx-thebelab documentation](https://sphinx-thebelab.readthedocs.io/e
 
 ## Install
 
-To install `sphinx-thebelab` first clonse and install it:
+To install `sphinx-thebelab` first clone and install it:
 
 ```
 pip install sphinx-thebelab
